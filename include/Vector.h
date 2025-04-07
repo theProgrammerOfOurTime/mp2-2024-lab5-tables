@@ -30,8 +30,8 @@ public:
     Vector(Vector&& v) : data(nullptr)
     {
         std::swap(data, v.data);
-        std::swap(capacity, v.capacity);
-        std::swap(size, v.size);
+        capacity = v.capacity;
+        size = v.size;
     }
     Vector(Vector& v) : capacity(v.capacity), size(v.size)
     {

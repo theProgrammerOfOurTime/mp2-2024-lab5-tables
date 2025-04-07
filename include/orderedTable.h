@@ -51,6 +51,8 @@ public:
 	}
 	void insert(std::pair<Vector<unsigned char>, std::shared_ptr<Item>> it)
 	{
+		if (logs) countÑomparisons++;
+		if(it.first.length() == 0) throw std::logic_error("an empty name is not allowed");
 		table.push_back(it);
 		int i = table.length() - 1;
 		while (i > 0 && strcmp(table[i - 1].first, it.first) == 1)

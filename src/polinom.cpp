@@ -359,6 +359,27 @@ polinom& polinom::operator=(polinom&& p)
 	return *this;
 }
 
+bool polinom::operator==(const polinom& p) const noexcept
+{
+	listMonomial* tHead1 = head;
+	listMonomial* tHead2 = p.head;
+	double eps = 1e-11;
+	while (tHead1 != nullptr && tHead2 != nullptr)
+	{
+		if (std::abs(tHead1->monomial.data.second - tHead2->monomial.data.second) > eps ||
+			std::abs(tHead1->monomial.data.first - tHead2->monomial.data.first) != 0) return false;
+		tHead1 = tHead1->next;
+		tHead2 = tHead2->next;
+	}
+	if (tHead1 != nullptr || tHead2 != nullptr) return false;
+	return true;
+}
+
+bool polinom::operator!=(const polinom& p) const noexcept
+{
+	return !(*this == p);
+}
+
 double polinom::ToOperand(const std::string& str)
 {
 	int i = 0, sign2 = 0;

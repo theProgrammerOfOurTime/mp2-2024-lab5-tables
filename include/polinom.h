@@ -29,6 +29,9 @@ public:
 	polinom& operator=(const polinom& p);
 	polinom& operator=(polinom&& p);
 
+	bool operator==(const polinom& p) const noexcept;
+	bool operator!=(const polinom& p) const noexcept;
+
 	friend std::istream& operator>> (std::istream& s, polinom& p);
 	friend std::ostream& operator<< (std::ostream& s, const polinom& p);
 };

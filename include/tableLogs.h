@@ -10,6 +10,15 @@ template<class Item>
 class orderedTable;
 
 template<class Item>
+class unOrderedTable;
+
+template<class Item>
+class hashTable;
+
+template<class Item>
+class ABLtree;
+
+template<class Item>
 class tableLogs
 {
 private:

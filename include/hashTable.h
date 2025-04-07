@@ -90,6 +90,8 @@ public:
 	}
 	void insert(std::pair<Vector<unsigned char>, std::shared_ptr<Item>> it)
 	{
+		if (logs) count—omparisons++;
+		if (it.first.length() == 0) throw std::logic_error("an empty name is not allowed");
 		uint32_t hash = murmurHash(it.first) % table.length();
 		for (int i = 0; i < table.length(); i++)
 		{
