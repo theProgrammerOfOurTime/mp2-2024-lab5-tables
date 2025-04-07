@@ -61,6 +61,7 @@ public:
 				std::swap(table[i], table[table.length() - 1]);
 				if (logs) countÑomparisons++;
 				table.pop_back();
+				return;
 			}
 		}
 		return;
