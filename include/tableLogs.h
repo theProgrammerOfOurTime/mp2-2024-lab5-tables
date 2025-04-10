@@ -42,19 +42,19 @@ public:
 	}
 	size_t getLogsOrderedTable() const
 	{
-		return (*t1).getCount—omparisons();
+		return (*t1).getCountComparisons();
 	}
 	size_t getLogsUnOrderedTable() const
 	{
-		return (*t2).getCount—omparisons();
+		return (*t2).getCountComparisons();
 	}
 	size_t getLogsHashTable() const
 	{
-		return (*t3).getCount—omparisons();
+		return (*t3).getCountComparisons();
 	}
 	size_t getLogstABLTree() const
 	{
-		return (*t4).getCount—omparisons();
+		return (*t4).getCountComparisons();
 	}
 	std::string getAllLogs()
 	{
