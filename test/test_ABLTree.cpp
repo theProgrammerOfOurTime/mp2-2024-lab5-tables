@@ -1,47 +1,47 @@
 #include <gtest.h>
-#include "unOrderedTable.h"
+#include "ABLtree.h"
 #include "polinom.h"
 
-TEST(unOrderedTable, can_create_unOrderedTable)
+TEST(ABLtree, can_create_ABLtree)
 {
-	ASSERT_NO_THROW(unOrderedTable<polinom> t);
+	ASSERT_NO_THROW(ABLtree<polinom> t);
 }
 
-TEST(unOrderedTable, cant_insert_empty_item)
+TEST(ABLtree, cant_insert_empty_item)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1;
 	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
 	ASSERT_ANY_THROW(t.insert({ n1, p1 }));
 }
 
-TEST(unOrderedTable, can_insert_polynomial)
+TEST(ABLtree, can_insert_polynomial)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1("p1");
 	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
 	ASSERT_NO_THROW(t.insert({ n1, p1 }));
 }
 
-TEST(unOrderedTable, cant_find_in_empty_table)
+TEST(ABLtree, cant_find_in_empty_table)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1("p1");
 	EXPECT_EQ(nullptr, t.search(n1));
 }
 
-TEST(unOrderedTable, can_find_inserted_polynomial)
+TEST(ABLtree, can_find_inserted_polynomial)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1("p1");
 	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
 	t.insert({ n1, p1 });
 	EXPECT_NE(nullptr, t.search(n1));
 }
 
-TEST(unOrderedTable, cant_find_empty_item)
+TEST(ABLtree, cant_find_empty_item)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1("p1");
 	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
 	t.insert({ n1, p1 });
@@ -49,34 +49,34 @@ TEST(unOrderedTable, cant_find_empty_item)
 	EXPECT_EQ(nullptr, t.search(n2));
 }
 
-TEST(unOrderedTable, finds_valid_polynomial)
+TEST(ABLtree, finds_valid_polynomial)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1("p1");
 	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
 	t.insert({ n1, p1 });
 	EXPECT_EQ(*p1, *t.search(n1));
 }
 
-TEST(unOrderedTable, can_erase_polinomial_in_empty_table)
+TEST(ABLtree, can_erase_polinomial_in_empty_table)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1("p1");
 	ASSERT_NO_THROW(t.erase(n1));
 }
 
-TEST(unOrderedTable, can_erase_polinomial)
+TEST(ABLtree, can_erase_polinomial)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1("p1");
 	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
 	t.insert({ n1, p1 });
 	ASSERT_NO_THROW(t.erase(n1));
 }
 
-TEST(unOrderedTable, cant_find_where_to_delete)
+TEST(ABLtree, cant_find_where_to_delete)
 {
-	unOrderedTable<polinom> t;
+	ABLtree<polinom> t;
 	Vector<unsigned char> n1("p1");
 	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
 	t.insert({ n1, p1 });

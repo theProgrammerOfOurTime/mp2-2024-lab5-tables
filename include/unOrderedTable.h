@@ -32,6 +32,7 @@ public:
 		nullItem = nullptr;
 		includeLogs(0);
 		count—omparisons = 0;
+		logs = false;
 	}
 	~unOrderedTable() { }
 	std::shared_ptr<Item> search(const Vector<unsigned char>& key)
@@ -44,8 +45,7 @@ public:
 		return nullItem;
 	}
 	void insert(std::pair<Vector<unsigned char>, std::shared_ptr<Item>> it)
-	{
-		
+	{	
 		if (logs) count—omparisons++;
 		if (it.first.length() == 0) throw std::logic_error("an empty name is not allowed");
 		table.push_back(it);

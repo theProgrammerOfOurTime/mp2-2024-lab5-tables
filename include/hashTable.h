@@ -73,6 +73,7 @@ public:
 		nullItem = nullptr;
 		includeLogs(0);
 		count—omparisons = 0;
+		logs = false;
 	}
 	~hashTable() { }
 	std::shared_ptr<Item> search(const Vector<unsigned char>& key)

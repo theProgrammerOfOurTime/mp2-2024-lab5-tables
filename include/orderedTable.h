@@ -31,6 +31,7 @@ public:
 		nullItem = nullptr;
 		includeLogs(0);
 		count—omparisons = 0;
+		logs = false;
 	}
 	~orderedTable()
 	{
