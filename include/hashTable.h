@@ -8,12 +8,12 @@ class hashTable
 {
 private:
 	Vector<std::pair<Vector<unsigned char>, std::shared_ptr<Item>>> table;
-	Vector<int8_t> states; //1 - çàïîëíåíî, 0 - ïóñòî, -1 - óäàëåíî
+	Vector<int8_t> states; //1 - çàïîëíåíî, 0 - ïócòî, -1 - óäàëåíî
 	std::shared_ptr<Item> nullItem;
 	const uint32_t p;
 	Strcmp strcmp;
 	bool logs;
-	size_t countÑomparisons;
+	size_t countComparisons;
 
 	uint32_t murmurHash(const Vector<unsigned char>& key)
 	{
@@ -25,7 +25,7 @@ private:
 		uint32_t hash = seed ^ len;
 		while (len >= 4)
 		{
-			if (logs) countÑomparisons++;
+			if (logs) countComparisons++;
 			k = key[i];
 			k |= key[i + 1] << 8;
 			k |= key[i + 2] << 16;
@@ -57,13 +57,13 @@ private:
 	void includeLogs(const bool& logs)
 	{
 		this->logs = logs;
-		strcmp.includeLogs(logs, &countÑomparisons);
+		strcmp.includeLogs(logs, &countComparisons);
 		return;
 	}
-	size_t getCountÑomparisons() noexcept
+	size_t getCountComparisons() noexcept
 	{
-		size_t res = countÑomparisons;
-		countÑomparisons = 0;
+		size_t res = countComparisons;
+		countComparisons = 0;
 		return res;
 	}
 
@@ -72,7 +72,7 @@ public:
 	{
 		nullItem = nullptr;
 		includeLogs(0);
-		countÑomparisons = 0;
+		countComparisons = 0;
 		logs = false;
 	}
 	~hashTable() { }
@@ -81,9 +81,9 @@ public:
 		uint32_t hash = murmurHash(key) % table.length();
 		for (int i = 0; i < table.length(); i++)
 		{
-			if (logs) countÑomparisons += 2;
+			if (logs) countComparisons += 2;
 			if (states[hash] == 0) return nullItem;
-			if (logs) countÑomparisons += 2;
+			if (logs) countComparisons += 2;
 			if (states[hash] == 1 && strcmp(table[hash].first, key) == 0) return table[hash].second;
 			hash = (hash + i * p) % table.length();
 		}
@@ -91,12 +91,12 @@ public:
 	}
 	void insert(std::pair<Vector<unsigned char>, std::shared_ptr<Item>> it)
 	{
-		if (logs) countÑomparisons++;
+		if (logs) countComparisons++;
 		if (it.first.length() == 0) throw std::logic_error("an empty name is not allowed");
 		uint32_t hash = murmurHash(it.first) % table.length();
 		for (int i = 0; i < table.length(); i++)
 		{
-			if (logs) countÑomparisons += 2;
+			if (logs) countComparisons += 2;
 			if (states[hash] <= 0)
 			{
 				table[hash] = it;
@@ -105,7 +105,7 @@ public:
 			}
 			else if (states[hash] == 1 && strcmp(table[hash].first, it.first) == 0)
 			{
-				if (logs) countÑomparisons += 2;
+				if (logs) countComparisons += 2;
 				throw std::exception("Already in the table.");
 			}
 			hash = (hash + i * p) % table.length();
@@ -117,13 +117,13 @@ public:
 		uint32_t hash = murmurHash(key) % table.length();
 		for (int i = 0; i < table.length(); i++)
 		{
-			if (logs) countÑomparisons += 3;
+			if (logs) countComparisons += 3;
 			if (states[hash] == 1 && strcmp(table[hash].first, key) == 0)
 			{
 				states[hash] = -1;
 				return;
 			}
-			if (logs) countÑomparisons += 1;
+			if (logs) countComparisons += 1;
 			if (states[hash] == 0) return;
 			hash = (hash + i * p) % table.length();
 		}

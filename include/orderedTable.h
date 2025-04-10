@@ -12,17 +12,17 @@ private:
 	std::shared_ptr<Item> nullItem;
 	Strcmp strcmp;
 	bool logs;
-	size_t count—omparisons;
+	size_t countComparisons;
 	void includeLogs(const bool& logs)
 	{
 		this->logs = logs;
-		strcmp.includeLogs(logs, &count—omparisons);
+		strcmp.includeLogs(logs, &countComparisons);
 		return;
 	}
-	size_t getCount—omparisons() noexcept
+	size_t getCountComparisons() noexcept
 	{
-		size_t res = count—omparisons;
-		count—omparisons = 0;
+		size_t res = countComparisons;
+		countComparisons = 0;
 		return res;
 	}
 public:
@@ -30,7 +30,7 @@ public:
 	{
 		nullItem = nullptr;
 		includeLogs(0);
-		count—omparisons = 0;
+		countComparisons = 0;
 		logs = false;
 	}
 	~orderedTable()
@@ -42,7 +42,7 @@ public:
 		int l = 0, r = table.length() - 1;
 		while (l <= r)
 		{
-			if (logs) count—omparisons++;
+			if (logs) countComparisons++;
 			int c = l + (r - l) / 2;
 			if (strcmp(table[c].first, key) == 0) return table[c].second;
 			if (strcmp(table[c].first, key) == 1) r = c - 1;
@@ -52,21 +52,21 @@ public:
 	}
 	void insert(std::pair<Vector<unsigned char>, std::shared_ptr<Item>> it)
 	{
-		if (logs) count—omparisons++;
+		if (logs) countComparisons++;
 		if(it.first.length() == 0) throw std::logic_error("an empty name is not allowed");
 		table.push_back(it);
 		int i = table.length() - 1;
 		while (i > 0 && strcmp(table[i - 1].first, it.first) == 1)
 		{
 			swap(table[i], table[i - 1]);
-			if (logs) count—omparisons += 3;
+			if (logs) countComparisons += 3;
 			i--;
 		}
 		return;
 	}
 	void erase(const Vector<unsigned char>& key)
 	{
-		if (logs) count—omparisons += 1;
+		if (logs) countComparisons += 1;
 		if (search(key) == nullptr) return;
 		std::pair<Vector<unsigned char>, std::shared_ptr<Item>> it;
 		it = table.back();
@@ -75,7 +75,7 @@ public:
 		while (strcmp(it.first, key) != 0)
 		{
 			swap(it, table[i]);
-			if (logs) count—omparisons += 2;
+			if (logs) countComparisons += 2;
 			i--;
 		}
 		return;
