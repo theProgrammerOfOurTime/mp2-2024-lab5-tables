@@ -59,7 +59,6 @@ public:
 			if (strcmp(table[i].first, key) == 0)
 			{
 				std::swap(table[i], table[table.length() - 1]);
-				table[table.length() - 1].second = nullItem;
 				if (logs) countComparisons++;
 				table.pop_back();
 				return;

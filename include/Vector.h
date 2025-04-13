@@ -27,8 +27,9 @@ public:
         size_t i = 0;
         while (str[i] != '\0') push_back(str[i++]);
     }
-    Vector(Vector&& v) : data(nullptr)
+    Vector(Vector&& v)
     {
+        data = nullptr;
         std::swap(data, v.data);
         capacity = v.capacity;
         size = v.size;
@@ -55,6 +56,15 @@ public:
             capacity = v.capacity;
         }
         std::copy(v.data, v.data + v.capacity, data);
+        size = v.size;
+        return *this;
+    }
+    Vector& operator=(Vector&& v)
+    {
+        delete[] data;
+        data = nullptr;
+        std::swap(data, v.data);
+        capacity = v.capacity;
         size = v.size;
         return *this;
     }
