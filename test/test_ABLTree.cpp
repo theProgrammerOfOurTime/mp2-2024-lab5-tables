@@ -153,3 +153,39 @@ TEST(ABLtree, multiple_delete)
 	ASSERT_NO_THROW(t.erase(n1));
 	ASSERT_NO_THROW(t.erase(n4));
 }
+
+TEST(ABLtree, test_balance1)
+{
+	AVLTreeInterface t;
+	Vector<unsigned char> n1("p1");
+	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
+	t.insert({ n1, p1 });
+	Vector<unsigned char> n2("p2");
+	std::shared_ptr<polinom> p2(new polinom("4.5 1 3 4"));
+	t.insert({ n2, p2 });
+	Vector<unsigned char> n3("p3");
+	std::shared_ptr<polinom> p3(new polinom("5.6 1 2 3"));
+	t.insert({ n3, p3 });
+	auto root = t.getRoot();
+	EXPECT_EQ(n2, root->key);
+	EXPECT_EQ(n1, root->left->key);
+	EXPECT_EQ(n3, root->right->key);
+}
+
+TEST(ABLtree, test_balance2)
+{
+	AVLTreeInterface t;
+	Vector<unsigned char> n3("p3");
+	std::shared_ptr<polinom> p3(new polinom("5.6 1 2 3"));
+	t.insert({ n3, p3 });
+	Vector<unsigned char> n2("p2");
+	std::shared_ptr<polinom> p2(new polinom("4.5 1 3 4"));
+	t.insert({ n2, p2 });
+	Vector<unsigned char> n1("p1");
+	std::shared_ptr<polinom> p1(new polinom("4.5 1 3 4 5.6 1 2 3"));
+	t.insert({ n1, p1 });
+	auto root = t.getRoot();
+	EXPECT_EQ(n2, root->key);
+	EXPECT_EQ(n1, root->left->key);
+	EXPECT_EQ(n3, root->right->key);
+}

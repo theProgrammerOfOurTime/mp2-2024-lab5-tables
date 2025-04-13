@@ -4,11 +4,12 @@
 #include "strcmp.h"
 #include "queue.h"
 #include "tableLogs.h"
+#include "polinom.h"
 
 template<class Item>
 class ABLtree
 {
-private:
+protected:
 	
 	struct node
 	{
@@ -284,33 +285,14 @@ public:
 		head = balance(head);
 		return;
 	}
-	/*void printTree()
-	{
-		if (head == nullptr) return;
-		Queue<std::pair<node*, int>> nodes;
-		nodes.push({ head, 0 });
-		int curH = 0;
-		std::cout << curH << " ";
-		while (!nodes.empty())
-		{
-			std::pair<node*, int > t1 = nodes.front();
-			node* t = t1.first;
-			nodes.pop();
-			if (curH != t1.second)
-			{
-				curH = t1.second;
-				std::cout << std::endl << curH << " ";
-			}
-			for (int i = 0; i < t->key.length(); i++)
-			{
-				std::cout << t->key[i];
-			}
-			std::cout << " " << diff(t) << " ";
-			if (t->left != nullptr) nodes.push({ t->left, curH + 1 } );
-			if (t->right != nullptr) nodes.push({ t->right, curH + 1 });
-		}
-		return;
-	}*/
-	
 	template<class Item> friend class tableLogs;
+};
+
+class AVLTreeInterface : public ABLtree<polinom>
+{
+public:
+	node* getRoot() const noexcept
+	{
+		return head;
+	}
 };
